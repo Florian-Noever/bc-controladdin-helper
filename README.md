@@ -2,7 +2,7 @@
 Helper for invoking AL events or making JS/TS functions available for AL ControlAddIns to call.
 
 ## How to use the package
-1. install via `npm install --save al-helper`
+1. Install via `npm install --save al-helper`
 2. Import the ALHelper class `import ALHelper from 'al-helper';`
 3. Use the available function as mentioned below
 
