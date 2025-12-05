@@ -1,5 +1,5 @@
 {
-  "name": "al-helper",
+  "name": "@florian-noever/al-helper",
   "version": "1.0.0",
   "description": "Helper for invoking AL functions / nevents from JS/TS",
   "type": "module",
