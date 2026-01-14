@@ -15,9 +15,11 @@
   "homepage": "https://github.com/Florian-Noever/bc-controladdin-helper",
   "keywords": [
     "al",
-    "dynamics",
-    "nav",
-    "helper"
+    "javascript",
+    "typescript",
+    "control-addin",
+    "helper",
+    "business-central"
   ],
   "main": "dist/ALHelper.js",
   "module": "dist/ALHelper.js",
