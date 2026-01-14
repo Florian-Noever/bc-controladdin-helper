@@ -2,7 +2,23 @@
   "name": "@floriannoever/bc-controladdin-helper",
   "version": "1.0.3",
   "description": "Helper for invoking AL events for a controladdin from JS/TS",
+  "license": "MIT",
+  "author": "Florian Noever",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Florian-Noever/bc-controladdin-helper"
+  },
+  "bugs": {
+    "url": "https://github.com/Florian-Noever/bc-controladdin-helper/issues"
+  },
+  "homepage": "https://github.com/Florian-Noever/bc-controladdin-helper",
+  "keywords": [
+    "al",
+    "dynamics",
+    "nav",
+    "helper"
+  ],
   "main": "dist/ALHelper.js",
   "module": "dist/ALHelper.js",
   "types": "dist/ALHelper.d.ts",
@@ -17,22 +33,6 @@
     "prepare": "npm run build",
     "test": "echo \"No tests specified\""
   },
-  "keywords": [
-    "al",
-    "dynamics",
-    "nav",
-    "helper"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Florian-Noever/bc-controladdin-helper"
-  },
-  "bugs": {
-    "url": "https://github.com/Florian-Noever/bc-controladdin-helper/issues"
-  },
-  "homepage": "https://github.com/Florian-Noever/bc-controladdin-helper",
-  "author": "Florian Noever",
-  "license": "MIT",
   "devDependencies": {
     "typescript": "^5.9.3"
   }
