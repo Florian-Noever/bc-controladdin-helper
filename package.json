@@ -1,6 +1,6 @@
 {
   "name": "@floriannoever/bc-controladdin-helper",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Helper for invoking AL events for a controladdin from JS/TS",
   "license": "MIT",
   "author": "Florian Noever",
