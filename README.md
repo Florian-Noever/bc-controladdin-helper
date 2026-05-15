@@ -33,7 +33,7 @@ The template supports making functions public to be callable from the BC Control
     ```
 4. Call the procedure like you would normally do using the ControlAddIn
 
-> [!INFO]
+> [!NOTE]
 > If the function relies on `this` (e.g. a class method), pass the class instance or the class itself as the second argument so it is correctly bound when called from AL:
 > ```javascript
 > ALHelper.makeFunctionAccessible(myInstance.someMethod, myInstance);
@@ -60,7 +60,7 @@ The template supports calling Events that are defined in the ControlAddIn file i
     // or skipping event if BC Environment is busy (operation is running)
     ALHelper.invokeEventSkipBusy('OnControlReady', 'Control Ready Event. Time: ', datetime.toLocaleTimeString());
     ```
-    > [!INFO]
+    > [!NOTE]
     > The first parameter of `invokeEvent` is the name of the event in your BC project. All further parameters are forwarded to the AL event's parameters: `invokeEvent('name', param1, param2)`. If your data is already in an array, use the spread operator: `invokeEvent('name', ...yourArray)`.
 
 ## Logging with ALLogger
@@ -89,6 +89,6 @@ ALLogger.setLogLevel(LogLevel.INFO); // show all messages
 ALLogger.setLogLevel(LogLevel.NONE); // silence all messages
 ```
 
-> [!INFO]
+> [!NOTE]
 > After calling `ALLogger.init()`, the log level can also be changed at runtime directly from the browser dev console (`setALLoggerLogLevel(2)`) or from AL code via the registered procedures, without redeploying (in AL `SetLogLevel(logLevel: int)`).
 > Where NONE = 0, ERROR = 1, WARNING = 2, INFO = 3
