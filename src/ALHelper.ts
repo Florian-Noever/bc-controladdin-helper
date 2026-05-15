@@ -1,3 +1,5 @@
+import type { NAVEnvironment } from './ALEnvironment.js';
+
 /**
  * Helper class for invoking AL events and making functions accessible in AL.
  */
@@ -90,11 +92,93 @@ export default class ALHelper {
      * Makes a specified function accessible in the AL environment by adding it to
      * the global `window` object with a capitalized name.
      * @param func - The function to make accessible in AL.
+     * @param context - Optional object to bind as `this` when the function is called.
+     *                  Use this when passing a class method that relies on `this`.
      */
-    static makeFunctionAccessible(func: (...args: unknown[]) => unknown): void {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    static makeFunctionAccessible<T extends (...args: any[]) => any>(func: T, context?: object): void {
         const functionName = func.name; // Get the name of the function
         const capitalizedFunctionName = functionName.charAt(0).toUpperCase() + functionName.slice(1); // Capitalize the first letter of the function name
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (window as any)[capitalizedFunctionName] = func; // Make the function available in the window object to be called in AL
+        (window as any)[capitalizedFunctionName] = context == null ? func : func.bind(context); // Make the function available in the window object to be called in AL
+    }
+
+    /**
+     * Returns the Business Central control add-in host element (`<div id="controlAddIn">`).
+     * Throws if the element is not found, which causes the StartupScript execution to
+     * fail with a clear error rather than silently producing a broken add-in.
+     * @returns The host HTMLElement.
+     * @throws {Error} When the element with id `controlAddIn` does not exist in the document.
+     */
+    static ensureHostElement(): HTMLElement {
+        const element = document.getElementById('controlAddIn');
+        if (!element) {
+            throw new Error(
+                'Control add-in host element not found. ' +
+                'Ensure this script is running as a BC StartupScript and that the controlAddIn element is present.',
+            );
+        }
+        console.log('Control add-in host element found:', element);
+        return element;
+    }
+
+    /**
+     * Returns the live BC environment object, or `undefined` if the NAV object is not available.
+     * The returned object stays live — `Busy`, `OnBusyChanged`, and `OnClosed` reflect the
+     * current client state and can be assigned at any time.
+     * @returns The live {@link NAVEnvironment} object, or `undefined` when running outside the BC client.
+     */
+    static getEnvironment(): NAVEnvironment | undefined {
+        return window.Microsoft?.Dynamics?.NAV?.GetEnvironment();
+    }
+
+    /**
+     * Registers a callback that BC calls whenever the client's `Busy` state changes.
+     * @param callback - Function to invoke on each `Busy` transition.
+     */
+    static onBusyChanged(callback: () => void): void {
+        const env = ALHelper.getEnvironment();
+        if (env) {
+            env.OnBusyChanged = callback;
+        } else {
+            console.warn('NAV environment is not available. onBusyChanged callback not registered.');
+        }
+    }
+
+    /**
+     * Registers a callback that BC calls when the page is closing.
+     * Do NOT call `invokeEvent` inside this callback — the channel is already closed by then.
+     * @param callback - Function to invoke when the page closes.
+     */
+    static onClosed(callback: () => void): void {
+        const env = ALHelper.getEnvironment();
+        if (env) {
+            env.OnClosed = callback;
+        } else {
+            console.warn('NAV environment is not available. onClosed callback not registered.');
+        }
+    }
+
+    /**
+     * Opens a URL in a new tab. Prefer this over `window.open()` — it works correctly
+     * in the BC Mobile App where `window.open` behaviour is undefined.
+     * Falls back to `window.open` outside of the BC environment.
+     * @param url - The URL to open.
+     */
+    static openWindow(url: string): void {
+        if (window.Microsoft?.Dynamics?.NAV?.OpenWindow) {
+            window.Microsoft.Dynamics.NAV.OpenWindow(url);
+        } else {
+            window.open(url);
+        }
+    }
+
+    /**
+     * Resolves a named image resource declared in the AL `Images` property to a data/CDN URL.
+     * @param imageName - The name of the image as declared in AL.
+     * @returns The resolved URL, or `undefined` if the NAV object is not available.
+     */
+    static getImageResource(imageName: string): string | undefined {
+        return window.Microsoft?.Dynamics?.NAV?.GetImageResource(imageName);
     }
 }

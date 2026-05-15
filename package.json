@@ -1,41 +1,54 @@
 {
-  "name": "@floriannoever/bc-controladdin-helper",
-  "version": "1.0.6",
-  "description": "Helper for invoking AL events for a controladdin from JS/TS",
-  "license": "MIT",
-  "author": "Florian Noever",
-  "type": "module",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Florian-Noever/bc-controladdin-helper"
-  },
-  "bugs": {
-    "url": "https://github.com/Florian-Noever/bc-controladdin-helper/issues"
-  },
-  "homepage": "https://github.com/Florian-Noever/bc-controladdin-helper",
-  "keywords": [
-    "al",
-    "javascript",
-    "typescript",
-    "control-addin",
-    "helper",
-    "business-central"
-  ],
-  "main": "dist/ALHelper.js",
-  "module": "dist/ALHelper.js",
-  "types": "dist/ALHelper.d.ts",
-  "files": [
-    "dist"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
-  "scripts": {
-    "build": "tsc",
-    "prepare": "npm run build",
-    "test": "echo \"No tests specified\""
-  },
-  "devDependencies": {
-    "typescript": "^5.9.3"
-  }
+    "name": "@floriannoever/bc-controladdin-helper",
+    "version": "1.1.0",
+    "description": "Helper for invoking AL events for a controladdin from JS/TS",
+    "license": "MIT",
+    "author": "Florian Noever",
+    "type": "module",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Florian-Noever/bc-controladdin-helper.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Florian-Noever/bc-controladdin-helper/issues"
+    },
+    "homepage": "https://github.com/Florian-Noever/bc-controladdin-helper",
+    "keywords": [
+        "al",
+        "javascript",
+        "typescript",
+        "control-addin",
+        "helper",
+        "business-central"
+    ],
+    "main": "dist/ALHelper.js",
+    "types": "dist/ALHelper.d.ts",
+    "files": [
+        "dist"
+    ],
+    "sideEffects": false,
+    "exports": {
+        ".": {
+            "import": "./dist/ALHelper.js",
+            "types": "./dist/ALHelper.d.ts"
+        },
+        "./*": {
+            "import": "./dist/*.js",
+            "types": "./dist/*.d.ts"
+        }
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "scripts": {
+        "build": "tsc",
+        "prepare": "npm run build",
+        "test": "echo \"No tests specified\""
+    },
+    "devDependencies": {
+        "typescript": "^5.9.3"
+    },
+    "engines": {
+        "node": ">=18"
+    }
 }
