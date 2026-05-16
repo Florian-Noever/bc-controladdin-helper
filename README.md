@@ -39,7 +39,7 @@ The template supports making functions public to be callable from the BC Control
 > ALHelper.makeFunctionAccessible(myInstance.someMethod, myInstance);
 > ```
 
-## How to call an AL Event from React
+## How to call an AL Event from Typescript
 
 The template supports calling Events that are defined in the ControlAddIn file in the BC Project. For this you need to follow these steps:
 
