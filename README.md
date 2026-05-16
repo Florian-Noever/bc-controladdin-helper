@@ -47,7 +47,7 @@ The template supports calling Events that are defined in the ControlAddIn file i
     ```c#
     controladdin "PTE MyControlAddIn"
     {
-        Scripts = './addins/myproject.js';
+        StartupScript = './addins/myproject.js';
 
         event OnControlReady(Message: Text; CurrDateTime: Text);
     }
@@ -62,6 +62,17 @@ The template supports calling Events that are defined in the ControlAddIn file i
     ```
 > [!NOTE]
 > The first parameter of `invokeEvent` is the name of the event in your BC project. All further parameters are forwarded to the AL event's parameters: `invokeEvent('name', param1, param2)`. If your data is already in an array, use the spread operator: `invokeEvent('name', ...yourArray)`.
+
+## Getting the Host Element
+
+Every BC control add-in renders inside a `<div id="controlAddIn">` element. Use `ALHelper.ensureHostElement()` to retrieve it safely in your StartupScript:
+
+```javascript
+const host = ALHelper.ensureHostElement();
+// mount your app or manipulate the DOM inside `host`
+```
+
+If the element is not found, the method throws an `Error` with a clear message rather than silently returning `null`. This causes the StartupScript to fail early, making misconfiguration easy to spot.
 
 ## Logging with ALLogger
 
